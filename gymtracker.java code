@@ -1,0 +1,45 @@
+package gym;
+
+import java.sql.*;
+
+public class GymManagement {
+    
+    public static void addMember(String name, int age, String type) {
+        try {
+            Connection con = GymDB.getConnection();
+            String q = "INSERT INTO members (name, age, membership_type) VALUES (?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(q);
+            ps.setString(1, name);
+            ps.setInt(2, age);
+            ps.setString(3, type);
+            ps.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ResultSet viewMembers() {
+        try {
+            Connection con = GymDB.getConnection();
+            Statement st = con.createStatement();
+            return st.executeQuery("SELECT * FROM members");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ResultSet searchMember(int id) {
+        try {
+            Connection con = GymDB.getConnection();
+            String q = "SELECT * FROM members WHERE id=?";
+            PreparedStatement ps = con.prepareStatement(q);
+            ps.setInt(1, id);
+            return ps.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
