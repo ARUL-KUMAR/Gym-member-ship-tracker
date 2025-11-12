@@ -1,0 +1,13 @@
+USE gymdb;
+SELECT * FROM members;
+DROP TABLE members;
+
+CREATE TABLE members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    membership_type VARCHAR(50)
+);
+
+DESC members;
+SELECT * FROM members;
